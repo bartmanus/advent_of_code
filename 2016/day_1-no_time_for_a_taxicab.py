@@ -35,7 +35,7 @@ if __name__ == '__main__':
     DIRECTION_MAPPING = {'R':1, 'L':-1}
     origin_vector = [0, 0]
     state = {'axis': 0, 'sign': +1}
-    instructions = sys.argv[0] if len(sys.argv) == 2 \
+    instructions = sys.argv[1] if len(sys.argv) == 2 \
                                else input('Instructions, please: ')
     for instruction in instructions.split(', '):
         direction = DIRECTION_MAPPING[instruction[0]]
