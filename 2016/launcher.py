@@ -6,6 +6,7 @@ Handles puzzle selection and puzzle input.
 """
 
 import day_1_no_time_for_a_taxicab as d1
+import day_2_bathroom_security as d2
 
 def run_taxicab():
     while True:
@@ -24,10 +25,31 @@ def run_taxicab():
     print('Taxicab distance to final destination is {}.'.format(distance_total))
     print('Taxicab distance to first path crossing is {}.'.format(distance_crossing))
 
+def run_keypad():
+    instructions = []
+    while len(instructions) == 0:
+        print('''Please input 3x3 keypad movement instructions. End input with by feeding
+an empty line. For each code digit input one line in [UDLR]+ format. Movement
+starts in the middle at digit 5.''')
+        while True:
+            instructions.append(input())
+            if instructions[-1] == '':
+                instructions.pop()
+                if len(instructions) > 0:
+                    break
+        if d2.valid_input(instructions):
+            break
+        else:
+            print('Invalid instructions, please retry!')
+            print(str(instructions))
+            instructions.clear()
+    code = d2.keypad(instructions)
+    print('Keypad code is {}.'.format(code)) 
+
 if __name__ == '__main__':
-    AVAILABLE_PUZZLES = {1: run_taxicab}
+    AVAILABLE_PUZZLES = {1: run_taxicab, 2:run_keypad}
     print('Welcome to inifinity! Try an available solution to AoC 2016 puzzles in', \
-            list(AVAILABLE_PUZZLES), 'or enter EOF to quit!')
+            list(AVAILABLE_PUZZLES.keys()), 'or enter EOF to quit!')
     while True:
         puzzle = None
         try:
@@ -35,7 +57,8 @@ if __name__ == '__main__':
             if puzzle is None:
                 continue
             if puzzle not in AVAILABLE_PUZZLES:
-                print('That puzzle\'s solution is not available! Try one of', list(AVAILABLE_PUZZLES))
+                print('That puzzle\'s solution is not available! Try one of', \
+                        list(AVAILABLE_PUZZLES.keys()))
                 puzzle = None
             else:
                 AVAILABLE_PUZZLES[puzzle]()
