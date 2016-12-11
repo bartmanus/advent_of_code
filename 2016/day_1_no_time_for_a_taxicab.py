@@ -67,9 +67,19 @@ def taxicab(instructions):
     return distance_total, distance_crossing
         
 if __name__ == '__main__':
-    instructions = sys.argv[1] if len(sys.argv) == 2 \
-                               else input('Instructions, please: ')
-    distance_total, distance_crossing = taxicab(instructions)
-    print('Taxicab distance to final destination is {}.'.format(distance_total))
-    print('Taxicab distance to first path crossing is {}.'.format(distance_crossing))
+    """
+    When module is executed directly, perform some tests.
+    """
+    TEST_CASES = [ \
+        {'input': 'R2, L3', 'output': (5, None,)}, \
+        {'input': 'R2, R2, R2', 'output': (2, None,)}, \
+        {'input': 'R5, L5, R5, R3', 'output': (12, None,)}, \
+        {'input': 'R8, R4, R4, R8', 'output': (8, 4,)} \
+    ]
+    try:
+        for case in TEST_CASES:
+            assert taxicab(case['input']) == case['output']
+        print('Tests successfully passed!')
+    except AssertionError:
+        print('Test FAILURE!')
 
