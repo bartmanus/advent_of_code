@@ -43,8 +43,9 @@ starts in the middle at digit 5.''')
             print('Invalid instructions, please retry!')
             print(str(instructions))
             instructions.clear()
-    code = d2.keypad(instructions)
-    print('Keypad code is {}.'.format(code)) 
+    for keypad in d2.KEYPADS:
+        code = d2.keypad(instructions, pad=keypad) 
+        print('Keypad code to {} is {}.'.format(keypad, code))
 
 if __name__ == '__main__':
     AVAILABLE_PUZZLES = {1: run_taxicab, 2:run_keypad}
@@ -54,8 +55,6 @@ if __name__ == '__main__':
         puzzle = None
         try:
             puzzle = int(input('Please select a puzzle: '))
-            if puzzle is None:
-                continue
             if puzzle not in AVAILABLE_PUZZLES:
                 print('That puzzle\'s solution is not available! Try one of', \
                         list(AVAILABLE_PUZZLES.keys()))
